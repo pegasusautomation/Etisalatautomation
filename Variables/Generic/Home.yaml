@@ -1,0 +1,78 @@
+ADMIN_PROFILE: 'Admin'
+ADMIN_PASSWORD: '2222'
+ADMIN1_PROFILE: '//android.widget.TextView[@text="admin1"]'
+CHILD_PROFILE: 'BabyShark'
+CHILD_PASSWORD: '3333'
+PIN_LABEL_TEXT: ' Enter Admin Pin Code'
+UNWANTED_KEYWORDS: [HOME, TV GUIDE, LIVE TV, ON DEMAND, UNLIMITED, STORE, MY LIST, ASSIST, REMINDER, RECORD, PLOT, AUDIO, SUBTITLES, PROGRAM DETAILS, Information, Similar]
+TIMEOUT: '5S'
+INDEX1: '1'
+INDEX2: '2'
+INDEX_5: '5'
+SWIPE_COUNTS: '5'
+SLEEP_TIME: '1'
+SWIPE_START_X: '540'
+SWIPE_START_Y: '1800'
+SWIPE_END_X: '540'
+SWIPE_END_Y: '300'
+PACKAGE_NAME: 'com.huawei.phone.elife'
+SCROLL_COUNT: '10'
+SWIPE_DURATION: '1000'
+NEW_RELEASE_YEAR_MIN: '1900'
+NEW_RELEASE_YEAR_MAX: '2100'
+CURRENT_YEAR: '2025'
+START_YEAR: '2020'
+CANCEL_BUTTON: '//android.widget.TextView[@text="CANCEL"]'
+
+
+TV_GUIDE: 'xpath=(//android.widget.TextView[@text="TV GUIDE"])[1]'
+ALL_CHANNEL: '//android.widget.TextView[@text="All Channels"]'
+TODAY: '//android.widget.TextView[@text="TODAY"]'
+
+PROFILE_TEXT: '//android.widget.TextView[@text="Profiles"]'
+PIN_CODE: '//android.widget.EditText[@text="PIN Code"]'
+OK_BUTTON: '//android.widget.TextView[@text="OK"]'
+CANCEL_BUTTON: '//android.widget.TextView[@text="CANCEL"]'
+HOME_TEXT: 'xpath=(//android.widget.TextView[@text="HOME"])[2]'
+LIVE_TV_TEXT: '//android.widget.TextView[@text="Live TV"]'
+WEB_ELEMENTS: 'xpath=//android.widget.TextView'
+MENU_BAR: '//android.widget.FrameLayout[@resource-id="android:id/content"]//android.widget.ImageView'
+ON_DEMAND: '//android.widget.TextView[@text="ON DEMAND"]'
+#MENU_BAR: '//android.widget.FrameLayout[@resource-id="android:id/content"]//android.widget.ImageView'
+SCROLL_TO_STRATEGY: 'android'
+SCROLL_TO_CONTINUE_WATCHING: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("CONTINUE WATCHING"))'
+CONTINUE_WATCHING_TEXT: '//android.widget.TextView[@text="CONTINUE WATCHING"]'
+CONTINUE_WATCHING_CONTENT: '//android.widget.TextView[contains(@text, "CONTINUE")]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+
+SCROLL_TO_RECOMMENDED: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("RECOMMENDED"))'
+RECOMMENDED_TEXT: '//android.widget.TextView[@text="RECOMMENDED"]'
+RECOMMENDED_CONTENT: '//android.widget.TextView[contains(@text, "RECOMMENDED")]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+
+VOD_CONTENT: '//android.widget.FrameLayout[@clickable="true" and @bounds="[0,246][1080,996]"]'
+VOD_LANGUAGE_TEXT: '//android.widget.TextView[@text="Language"]'
+
+SCROLL_TO_LOCKED_CONTENT: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("NEW RELEASES"))'
+LOCKED_CONTENT_TEXT: '//android.widget.TextView[@text="NEW RELEASES"]'
+LOCKED_CONTENT: '//android.widget.TextView[@text="NEW RELEASES"]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+
+SEE_ALL_TEXT: '//android.widget.TextView[@text="SEE ALL"]'
+TV_GUIDE_TEXT: 'xpath=(//android.widget.TextView[@text="TV GUIDE"])[2]'
+
+SEARCH_ICON: '//android.widget.FrameLayout[@resource-id="android:id/content"]//android.widget.FrameLayout[4]/android.widget.ImageView'
+SEARCH_TEXT_BOX: '//android.widget.EditText[@text="Search all content"]'
+SEARCH_TEXT: 'india'
+SEARCH_CONTENT: 'xpath=(//android.widget.FrameLayout[@resource-id="android:id/content"]//android.widget.LinearLayout)[1]'
+
+FAVORITE_TEXT: '//android.widget.TextView[@text="FAVORITE"]'
+UNFAVORITE_TEXT: '//android.widget.TextView[@text="UNFAVORITE"]'
+SCROLL_TO_FAVORITES: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("FAVORITES"))'
+FAVORITE_CONTENT: '//android.widget.TextView[@text="FAVORITES"]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+
+SCROLL_TO_NEW_RELEASES: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("NEW RELEASES"))'
+NEW_RELEASES_TEXT: '//android.widget.TextView[@text="NEW RELEASES"]'
+NEW_RELEASES_CONTENT: '//android.widget.TextView[@text="NEW RELEASES"]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+
+
+
+
+

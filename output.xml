@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.3 (Python 3.7.4 on win32)" generated="20250508 15:39:35.273" rpa="false" schemaversion="2">
+<suite id="s1" name="TestSuite" source="c:\Users\40013838\Etisalat_Android\TestSuite">
+<suite id="s1-s1" name="TC02 Edit Profile Audio Launguage" source="c:\Users\40013838\Etisalat_Android\TestSuite\TC02_Edit_Profile_Audio_Launguage.robot">
+<test id="s1-s1-t1" name="Edit_Profile_Audio_Language: Verify that user is able to Edit the profile">
+<kw name="NAVIGATE TO PROFILE" library="ANDROID_PHONE_Functions">
+<kw name="LAUNCH TV BY E APP IN ANDROID PHONE" library="ANDROID_PHONE_Functions">
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>appActivity=ae.etisalat.elifeon.activities.MainActivity</arg>
+<arg>appPackage=com.huawei.phone.elife</arg>
+<arg>automationName=UiAutomator2</arg>
+<arg>autoWebview=false</arg>
+<arg>noReset=true</arg>
+<arg>newCommandTimeout=120</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |</doc>
+<status status="PASS" starttime="20250508 15:39:35.752" endtime="20250508 15:39:46.238"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${deviceidvar}</var>
+<arg>Get Capability</arg>
+<arg>udid</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Get Capability" library="AppiumLibrary">
+<arg>udid</arg>
+<doc>Return the desired capability value by desired capability name</doc>
+<kw name="Capture Page Screenshot" library="AppiumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20250508 15:39:46.885" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="appium-screenshot-1.png"&gt;&lt;img src="appium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20250508 15:39:46.238" endtime="20250508 15:39:46.900"/>
+</kw>
+<msg timestamp="20250508 15:39:46.902" level="FAIL">KeyError: 'udid'</msg>
+<status status="FAIL" starttime="20250508 15:39:46.238" endtime="20250508 15:39:46.902"/>
+</kw>
+<msg timestamp="20250508 15:39:46.902" level="INFO">${deviceidvar} = False</msg>
+<status status="PASS" starttime="20250508 15:39:46.238" endtime="20250508 15:39:46.902"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${deviceid}</var>
+<arg>"${deviceidvar}"=="${True}"</arg>
+<arg>Get Capability</arg>
+<arg>udid</arg>
+<arg>ELSE</arg>
+<arg>Get Capability</arg>
+<arg>deviceUDID</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Get Capability" library="AppiumLibrary">
+<arg>deviceUDID</arg>
+<doc>Return the desired capability value by desired capability name</doc>
+<status status="PASS" starttime="20250508 15:39:46.902" endtime="20250508 15:39:46.902"/>
+</kw>
+<msg timestamp="20250508 15:39:46.902" level="INFO">${deviceid} = HA1LPSPX</msg>
+<status status="PASS" starttime="20250508 15:39:46.902" endtime="20250508 15:39:46.902"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Deviceid:${deviceid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250508 15:39:46.902" endtime="20250508 15:39:46.902"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>20s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250508 15:40:06.907" level="INFO">Slept 20 seconds</msg>
+<status status="PASS" starttime="20250508 15:39:46.902" endtime="20250508 15:40:06.910"/>
+</kw>
+<status status="PASS" starttime="20250508 15:39:35.752" endtime="20250508 15:40:06.911"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${profiles}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>xpath=//android.widget.TextView[@text='Profiles']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>xpath=//android.widget.TextView[@text='Profiles']</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20250508 15:40:06.914" endtime="20250508 15:40:07.608"/>
+</kw>
+<msg timestamp="20250508 15:40:07.608" level="INFO">${profiles} = True</msg>
+<status status="PASS" starttime="20250508 15:40:06.913" endtime="20250508 15:40:07.608"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${profiles}' == 'True'</arg>
+<arg>Log To Console</arg>
+<arg>Profile page is visible</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Profile page is visible</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250508 15:40:07.608" endtime="20250508 15:40:07.608"/>
+</kw>
+<status status="PASS" starttime="20250508 15:40:07.608" endtime="20250508 15:40:07.608"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${profiles}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250508 15:40:07.608" level="INFO">True</msg>
+<status status="PASS" starttime="20250508 15:40:07.608" endtime="20250508 15:40:07.623"/>
+</kw>
+<if>
+<branch type="IF" condition="${profiles}== True">
+<kw name="Sleep" library="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250508 15:40:12.624" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20250508 15:40:07.623" endtime="20250508 15:40:12.624"/>
+</kw>
+<kw name="Click Text" library="AppiumLibrary">
+<arg>user1</arg>
+<doc>Click text identified by ``text``.</doc>
+<status status="PASS" starttime="20250508 15:40:12.624" endtime="20250508 15:40:13.766"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>20s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20250508 15:40:33.775" level="INFO">Slept 20 seconds</msg>
+<status status="PASS" starttime="20250508 15:40:13.766" endtime="20250508 15:40:33.778"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>user1 Selected successfuly</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250508 15:40:33.781" level="INFO">user1 Selected successfuly</msg>
+<status status="PASS" starttime="20250508 15:40:33.779" endtime="20250508 15:40:33.782"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${is_present}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>timeout=5s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="PASS" starttime="20250508 15:40:33.784" endtime="20250508 15:40:33.930"/>
+</kw>
+<msg timestamp="20250508 15:40:33.930" level="INFO">${is_present} = True</msg>
+<status status="PASS" starttime="20250508 15:40:33.783" endtime="20250508 15:40:33.930"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${is_present}' == 'True'</arg>
+<arg>Input Text</arg>
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>2222</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>2222</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20250508 15:40:33.930" level="INFO">Typing text '2222' into text field 'xpath=//android.widget.EditText[@text='PIN Code']'</msg>
+<status status="PASS" starttime="20250508 15:40:33.930" endtime="20250508 15:40:34.729"/>
+</kw>
+<status status="PASS" starttime="20250508 15:40:33.930" endtime="20250508 15:40:34.729"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>xpath=//android.widget.TextView[@text='OK']</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20250508 15:40:34.729" level="INFO">Clicking element 'xpath=//android.widget.TextView[@text='OK']'.</msg>
+<status status="PASS" starttime="20250508 15:40:34.729" endtime="20250508 15:40:36.207"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>admin pin is entered</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250508 15:40:36.207" endtime="20250508 15:40:36.207"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Enter the user1 pin</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20250508 15:40:36.207" endtime="20250508 15:40:36.223"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${is_present}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>timeout=5s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<kw name="Capture Page Screenshot" library="AppiumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20250508 15:40:41.925" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="appium-screenshot-2.png"&gt;&lt;img src="appium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20250508 15:40:41.397" endtime="20250508 15:40:41.925"/>
+</kw>
+<msg timestamp="20250508 15:40:41.925" level="FAIL">Element locator 'xpath=//android.widget.EditText[@text='PIN Code']' did not match any elements after 5 seconds</msg>
+<status status="FAIL" starttime="20250508 15:40:36.223" endtime="20250508 15:40:41.925"/>
+</kw>
+<msg timestamp="20250508 15:40:41.925" level="INFO">${is_present} = False</msg>
+<status status="PASS" starttime="20250508 15:40:36.223" endtime="20250508 15:40:41.925"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${is_present}' == 'True'</arg>
+<arg>Input Text</arg>
+<arg>xpath=//android.widget.EditText[@text='PIN Code']</arg>
+<arg>1234</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" starttime="20250508 15:40:41.925" endtime="20250508 15:40:41.925"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>user1 pin is entered</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250508 15:40:41.925" level="INFO">user1 pin is entered</msg>
+<status status="PASS" starttime="20250508 15:40:41.925" endtime="20250508 15:40:41.925"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>xpath=//android.widget.TextView[@text='OK']</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20250508 15:40:41.925" level="INFO">Clicking element 'xpath=//android.widget.TextView[@text='OK']'.</msg>
+<kw name="Capture Page Screenshot" library="AppiumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20250508 15:40:42.648" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="appium-screenshot-3.png"&gt;&lt;img src="appium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20250508 15:40:42.129" endtime="20250508 15:40:42.648"/>
+</kw>
+<msg timestamp="20250508 15:40:42.648" level="FAIL">ValueError: Element locator 'xpath=//android.widget.TextView[@text='OK']' did not match any elements.</msg>
+<status status="FAIL" starttime="20250508 15:40:41.925" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Profile got logged in</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<status status="FAIL" starttime="20250508 15:40:07.623" endtime="20250508 15:40:42.648"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" library="BuiltIn">
+<arg>Profile page is not visible</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</branch>
+<status status="FAIL" starttime="20250508 15:40:07.623" endtime="20250508 15:40:42.648"/>
+</if>
+<status status="FAIL" starttime="20250508 15:39:35.752" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${cancel}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>xpath=//android.widget.TextView[@text='CANCEL']</arg>
+<arg>timeout=5s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${cancel}' == 'True'</arg>
+<arg>Log</arg>
+<arg>clicked</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>xpath=//android.widget.TextView[@text='CANCEL']</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.648" endtime="20250508 15:40:42.648"/>
+</kw>
+<kw name="Wait Until Page Contains" library="AppiumLibrary">
+<arg>HOME</arg>
+<doc>Waits until `text` appears on current page.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.663" endtime="20250508 15:40:42.663"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${home_present}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>xpath=//android.widget.TextView[@text='HOME']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>'${home_present}' == 'True'</arg>
+<arg>Log To Console</arg>
+<arg>Navigated to Home screen</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>xpath=//android.widget.ImageView[@class='android.widget.ImageView']</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Click Text" library="AppiumLibrary">
+<arg>user1</arg>
+<doc>Click text identified by ``text``.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Run Process" library="Process">
+<arg>adb</arg>
+<arg>shell input tap 999 319</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Get Source" library="AppiumLibrary">
+<var>${XML}</var>
+<doc>Returns the entire source of the current page.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${XML}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20250508 15:40:42.664" endtime="20250508 15:40:42.664"/>
+</kw>
+<status status="FAIL" starttime="20250508 15:39:35.752" endtime="20250508 15:40:42.664">ValueError: Element locator 'xpath=//android.widget.TextView[@text='OK']' did not match any elements.</status>
+</test>
+<doc>Verify user able to change the audio language</doc>
+<status status="FAIL" starttime="20250508 15:39:35.360" endtime="20250508 15:40:42.664"/>
+</suite>
+<status status="FAIL" starttime="20250508 15:39:35.273" endtime="20250508 15:40:42.679"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TestSuite">TestSuite</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1" name="TC02 Edit Profile Audio Launguage">TestSuite.TC02 Edit Profile Audio Launguage</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

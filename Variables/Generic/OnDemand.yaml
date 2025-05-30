@@ -1,0 +1,22 @@
+TV_GUIDE: 'xpath=(//android.widget.TextView[@text="TV GUIDE"])[1]'
+GENRE_DROPDOWN_XPATH: '//android.widget.ScrollView//android.widget.FrameLayout[3]//android.widget.FrameLayout[1]//android.widget.FrameLayout'
+GENRE_CATAGORY_XPATH: "xpath=//android.widget.TextView[@text='${genre}']"
+
+
+# Genre options
+GENRE_CATEGORY_ALL:         'All'
+GENRE_CATEGORY_ACTION:      'Action'
+GENRE_CATEGORY_ADVENTURE:   'Adventure'
+GENRE_CATEGORY_ANIMATION:   'Animation'
+GENRE_CATEGORY_COMEDY:      'Comedy'
+GENRE_CATEGORY_DOCUMENTARY: 'Documentary'
+GENRE_CATEGORY_DRAMA:       'Drama'
+GENRE_CATEGORY_FAMILY:      'Family'
+GENRE_CATEGORY_HORROR:      'Horror'
+GENRE_CATEGORY_KIDS:        'Kids'
+GENRE_CATEGORY_MUSIC:       'Music'
+GENRE_CATEGORY_LIVE:      'Playing Now'
+GENRE_CATEGORY_CATCHUP:      'Catchup'
+
+#By Names
+GENRE_Title: 'Peter Rabbit'

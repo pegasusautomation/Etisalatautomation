@@ -1,0 +1,4 @@
+SCROLL_TO_STRATEGY: 'android'
+SCROLL_TO_FAVORITES: 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("FAVORITES"))'
+FAVORITE_CONTENT: '//android.widget.TextView[@text="FAVORITES"]/following-sibling::*[1]/android.widget.FrameLayout[1]'
+FAVORITE_TEXT: '//android.widget.TextView[@text="FAVORITE"]'
