@@ -16,8 +16,8 @@ Library         OperatingSystem
 Library         String
 Library         Collections
 Library         DateTime
-Library         Etisalat_Android/Lib/Python/Appium_Function.py
-Variables	C:/D_Drive/Etisalat_Android/Etisalat_Android/Variables/Generic/Home.yaml
+Library         C:/D_Drive/Etisalatautomation/Lib/Python/Appium_Function.py
+Variables	C:/D_Drive/Etisalatautomation/Variables/Generic/Home.yaml
 Library    XML
 
 
@@ -26,11 +26,24 @@ Library    XML
 
 
 TEST SETUP GENERIC ANDROID PHONE
-    Open Application  http://localhost:4723   platformName=Android  appActivity=ae.etisalat.elifeon.activities.MainActivity  appPackage=com.huawei.phone.elife  automationName=UiAutomator2  autoWebview=false  noReset=true  newCommandTimeout=120
-    ${deviceidvar}  run keyword and return status   Get Capability  udid
-	${deviceid}    RUN KEYWORD IF  "${deviceidvar}"=="${True}"     Get Capability  udid
-	...     ELSE    Get Capability  deviceUDID
-    log to console   Deviceid:${deviceid}
+    [Documentation]    Launches the app without resetting app data
+    Run Keyword And Ignore Error    Terminate Application    com.huawei.phone.elife
+    Sleep    2s
+    Open Application    http://localhost:4723
+    ...    platformName=Android
+    ...    deviceName=AndroidDevice
+    ...    appPackage=com.huawei.phone.elife
+    ...    appActivity=ae.etisalat.elifeon.activities.MainActivity
+    ...    automationName=UiAutomator2
+    ...    noReset=true
+    ...    autoGrantPermissions=true
+    ...    newCommandTimeout=120
+    Wait Until Page Contains Element    xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]    15s
+
+    ${deviceidvar}=    Run Keyword And Return Status    Get Capability    udid
+    ${deviceid}=       Run Keyword If    "${deviceidvar}" == "True"    Get Capability    udid
+    ...                ELSE    Get Capability    deviceUDID
+    Log To Console     Deviceid:${deviceid}
 
 Selecting Profile
     [Arguments]    ${PROFILE}    ${PASSWORD}

@@ -9,7 +9,7 @@
 *** Settings ***
 Documentation   Verify user able to change the audio language
 Library    AppiumLibrary
-Resource       C:/D_Drive/Etisalat_Android/Etisalat_Android/Lib/Robot/ANDROID_PHONE/ANDROID_PHONE_Functions.robot
+Resource       C:/D_Drive/Etisalatautomation/Lib/Robot/ANDROID_PHONE/ANDROID_PHONE_Functions.robot
 *** Test Cases ***
 Edit_Profile_Audio_Language: Verify that user is able to Edit the profile
 

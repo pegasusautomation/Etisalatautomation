@@ -19,5 +19,23 @@
   },
   "back_button": {
     "1080x2340_480": "0,81"
+  },
+  "tap_centre_of_player":{
+    "1080x2340_480": "540,520"
+  },
+  "maximize_player": {
+    "1080x2340_480": "1028,782"
+  },
+  "choose_subtitle_language": {
+    "1080x2340_480": "2164,55"
+  },
+  "select_english_subtitle": {
+    "1080x2340_480": "1759,505"
+  },
+  "choose_subtitle_done_button": {
+    "1080x2340_480": "1878,812"
+  },  
+  "no_subtitle": {
+    "1080x2340_480": "1750,330"
   }
 }

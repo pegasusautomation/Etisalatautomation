@@ -79,72 +79,108 @@ Confirm tile
 #     ${isTrue}=    Verify Genre Selection    ${GENRE_CATEGORY_MUSIC}
 #     Should Be True    ${isTrue}    Genre selection verification failed
 
+*** Settings ***
+Library    AppiumLibrary
+Library    BuiltIn
+
+*** Test Cases ***
+
 501_Verify Live And Catch Up Content Presence Under On-Demand Tab
     [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
-
-    # Navigate to the admin profile and open the VOD section
     Navigate To Admin Profile
     Navigate To VOD
-
-    # Select the 'Comedy' genre to simulate genre selection under VOD
     Select Genre    ${GENRE_CATEGORY_COMEDY}
-    Sleep    2s
-
-    # Tap on the first VOD tile (assumed to be present)
     Click Element    ${FIRST_TILE}
-
-    # Verify that 'Live' genre is NOT listed under VOD
     ${isLiveContent}=    Verify Genre Selection    ${GENRE_CATEGORY_LIVE}
-    ${isLiveContent_Str}=    Convert To String    ${isLiveContent}
-    Should Be Equal    ${isLiveContent_Str}    False    Live content is present under VOD
+    ${isLiveContentStr}=    Convert To String    ${isLiveContent}
+    Should Be Equal    ${isLiveContentStr}    False    Live content is present under VOD
+    ${isCatchupContent}=    Verify Genre Selection    ${GENRE_CATEGORY_CATCHUP}
+    ${isCatchupContentStr}=    Convert To String    ${isCatchupContent}
+    Should Be Equal    ${isCatchupContentStr}    False    Catchup content is present under VOD
+    [Teardown]    Close TvBY_e& Application
 
-    # Verify that 'Catchup' genre is also NOT listed under VOD
-    ${iscatchupContent}=    Verify Genre Selection    ${GENRE_CATEGORY_CATCHUP}
-    ${isCatchupContent_Str}=    Convert To String    ${iscatchupContent}
-    Should Be Equal    ${isCatchupContent_Str}    False    Catchup content is present under VOD
+502_Verify Playback Under VOD Feed
+    [Documentation]    Verify playback functionality under VOD feed
+    [Tags]    VOD
+    [Setup]    TEST SETUP GENERIC ANDROID PHONE
+    Navigate To Admin Profile
+    Navigate To VOD
+    Play VOD Content
+    Verify Playback During Playing
+    Navigate To VOD Page From Playback
+    [Teardown]    Close TvBY_e& Application
 
-# 502_Verify Playback Under VOD Feed
-#     [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section
-#     [Tags]    VOD
-#     [Setup]    TEST SETUP GENERIC ANDROID PHONE
-
-#     # Navigate to the admin profile and open the VOD section
-#     Navigate To Admin Profile
-#     Navigate To VOD
-#     Play VOD Content
-#     Verify Playback During Playing
-
-503_Verify Playback Under VOD Feed
-    [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section after searching for content
+503_Verify Playback After Search
+    [Documentation]    Verify VOD playback after searching for content
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
     Navigate To VOD
     Click Element    //android.widget.FrameLayout[2]/android.widget.ImageView
     Wait Until Page Contains    SEARCH    timeout=${TIMEOUT}
-    Log To Console    ✅ Search screen is visible
     Click Element    xpath=//android.widget.EditText[@text="Search all content"]
     Input Text    xpath=//android.widget.EditText[@text="Search all content"]    Peter rabbit
-    Sleep         1s
-    Press Keycode    66    # Try Enter
-    Sleep         s
-    ${is_title_found}=    Verify Selected VOD Title    Peter Rabbit
-    Should Be True    ${is_title_found}    "Peter Rabbit" is not found in the list
-    
+    Press Keycode    66
+    ${isTitleFound}=    Verify Selected VOD Title    Peter Rabbit
+    Should Be True    ${isTitleFound}    "Peter Rabbit" is not found in the list
+    [Teardown]    Close TvBY_e& Application
 
 507_Verify Navigate To VOD Section From Playback
-    [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section
+    [Documentation]    Verify navigation back to VOD from player
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
-
-    # Navigate to the admin profile and open the VOD section
     Navigate To Admin Profile
     Navigate To VOD
     Play VOD Content
     Verify Playback During Playing
     Navigate To VOD Page From Playback
+    [Teardown]    Close TvBY_e& Application
+
+508_Verify Subtitles on VOD Playback
+    [Documentation]    Verify subtitle visibility and toggle in VOD playback
+    [Tags]    VOD
+    [Setup]    TEST SETUP GENERIC ANDROID PHONE
+    Navigate To Admin Profile
+    Navigate To VOD
+    Play VOD Content
+    Verify Playback During Playing
+    Get Seekbar On Player
+    Select Subtitle Language As English
+    Verify Subtitle Display on Player
+    Select Subtitle Language As No Subtitle
+    Verify Subtitle Invisibility on Player
+    [Teardown]    Close TvBY_e& Application
+
+513_Verify Continue Watching VOD Playback
+    [Documentation]    Verify subtitle visibility after resume from continue watching
+    [Tags]    VOD
+    [Setup]    TEST SETUP GENERIC ANDROID PHONE
+    Navigate To Admin Profile
+    Navigate To VOD
+    Click Back Button
+    Move To Feed    CONTINUE WATCHING
+    Select Continue Watching Content To Play
+    ${isTitleFound}=    Verify Selected VOD Title    Peter Rabbit
+    Should Be True    ${isTitleFound}    "Peter Rabbit" is not found in the list
+    Play VOD Content
+    Verify Playback During Playing
+    [Teardown]    Close TvBY_e& Application
+
+515_Verify Live And Catch Up Absence Under Different Genre
+    [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section in another genre
+    [Tags]    VOD
+    [Setup]    TEST SETUP GENERIC ANDROID PHONE
+    Navigate To Admin Profile
+    Navigate To VOD
+    Select Genre    ${GENRE_CATEGORY_ADVENTURE}
+    Click Element    ${FIRST_TILE}
+    ${isTrue}=    Verify Genre Selection    ${GENRE_CATEGORY_ADVENTURE}
+    Should Be True    ${isTrue}    Genre selection verification failed
+    Play VOD Content
+    Verify Playback During Playing
+    [Teardown]    Close TvBY_e& Application
 
 
 

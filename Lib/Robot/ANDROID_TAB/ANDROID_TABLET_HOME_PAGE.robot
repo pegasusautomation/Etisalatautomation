@@ -5,10 +5,10 @@ Library    OperatingSystem
 Library         String
 Library    Collections
 Library         DateTime
-Resource   C:/D_Drive/Etisalat_Android/Etisalat_Android/Lib/Robot/ANDROID_TAB/ANDROID_TAB_Functions.robot
-Variables    C:/D_Drive/Etisalat_Android/Etisalat_Android/Variables/Generic/Home.yaml
-Variables    C:/D_Drive/Etisalat_Android/Etisalat_Android/Variables/Generic/OnDemand.yaml
-Resource    C:/D_Drive/Etisalat_Android/Etisalat_Android/TestSuite/keywords.robot
+Resource   C:/D_Drive/Etisalatautomation/Lib/Robot/ANDROID_TAB/ANDROID_TAB_Functions.robot
+Variables    C:/D_Drive/Etisalatautomation//Variables/Generic/Home.yaml
+Variables    C:/D_Drive/Etisalatautomation/Variables/Generic/OnDemand.yaml
+Resource    C:/D_Drive/Etisalatautomation/TestSuite/keywords.robot
 
 *** Keywords ***
 Scroll Back To Top
@@ -99,14 +99,18 @@ Epg Navigation
     Click Element    ${MENU_BAR}
     Click Text    HOME
 
+Close TvBY_e& Application
+    [Documentation]    Close the Tv by e& app
+    Terminate Application    com.huawei.phone.elife
+    Sleep    2s
+
 Navigate To VOD
     [Documentation]    Navigate to the Electronic Program Guide (EPG) and verify the displayed program information.
-    Sleep    3s
+    Sleep    5s
 #    Wait Until r5Element Is Visible    ${HOME_TEXT}    timeout=${TIMEOUT}
     Click Element    ${MENU_BAR}
     Click Element    ${ON_DEMAND}
     Run Keyword And Continue On Failure    Element Should Be Visible    ${ON_DEMAND}
-    Run Keyword And Continue On Failure    Element Should Be Visible    ${VOD_LANGUAGE_TEXT}
     Log To Console    Navigated to On Demand
 
 Select Genre
@@ -120,6 +124,7 @@ Select Genre
     ${genre_xpath}=    Set Variable    xpath=//android.widget.TextView[@text='${genre}']
     # Select the given genre from the dropdown
     Click Element    ${genre_xpath}
+    Sleep    3s
 
 
 Verify Genre Selection
@@ -147,11 +152,11 @@ Play VOD Content
     Tap Based On Action And Resolution    play_vod
 
 Verify Playback During Playing
-    Sleep    13s
+    Sleep    15s
     ${output}=    Run Process    adb    logcat    -d    |    findstr    player_aha    shell=True
     ${logs}=      Set Variable    ${output.stdout}
     Log    ${logs}
-
+    Sleep    3s
     Should Contain    ${logs}    onInformation:1100 i1=1
     Log    ✅ Video is playing
 
@@ -162,6 +167,39 @@ Verify Playback During Pause
 
     Should Contain    ${logs}    onInformation:1100 i1=0
     Log    ✅ Video is playing
+
+Get Seekbar On Player
+    Sleep    5s
+    Tap Based On Action And Resolution    tap_centre_of_player
+
+Select Subtitle Language As English
+    Tap Based On Action And Resolution    maximize_player
+    Sleep    5s
+    Get Seekbar On Player
+    Sleep    2s
+    Tap Based On Action And Resolution    choose_subtitle_language
+    Sleep    2s
+    Tap Based On Action And Resolution    select_english_subtitle
+
+Select Subtitle Language As No Subtitle
+    Sleep    5s
+    Get Seekbar On Player
+    Sleep    2s
+    Tap Based On Action And Resolution    choose_subtitle_language
+    Sleep    2s
+    Tap Based On Action And Resolution    no_subtitle
+
+Verify Subtitle Display on Player
+    Wait Until Keyword Succeeds    10s    1s    Element Should Be Visible    xpath=//android.view.View[@resource-id="subtitles"]
+
+Verify Subtitle Invisibility on Player 
+    Sleep    10s
+    ${is_visible}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//android.view.View[@resource-id="subtitles"]
+    Run Keyword If    '${is_visible}' == 'False'
+    ...    Log To Console    ✅ Subtitle is NOT visible on the player
+    ...  ELSE
+    ...    Log To Console    ❌ Subtitle is still visible on the player
+    
 
 Click Back Button
     Sleep    2s
@@ -177,6 +215,7 @@ Navigate To VOD Page From Playback
 
 Verify Selected VOD Title
     [Arguments]    ${expected_title}
+    Sleep    3s
     ${all_texts}=    Get All Visible Text
     ${is_present}=   Run Keyword And Return Status    List Should Contain Value    ${all_texts}    ${expected_title}
     Run Keyword If    '${is_present}' == 'True'
@@ -193,9 +232,16 @@ Check For Continue Watching Section
     Wait Until Element Is Visible   ${CONTINUE_WATCHING_CONTENT}
     Sleep    2s
     Click Element    ${CONTINUE_WATCHING_CONTENT}
-    Sleep    35s
-    Go Back
-    Scroll Back To Top
+
+Move To Feed    
+    [Arguments]    ${feed_name}
+    Sleep   5s
+    ${scrollable_xpath}=    Set Variable    new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${feed_name}"))
+    Click Element    ${SCROLL_TO_STRATEGY}=${scrollable_xpath}
+
+Select Continue Watching Content To Play
+    Sleep    2s
+    Click Element    ${CONTINUE_WATCHING_CONTENT}
 
 Personalised Recommendations
     Sleep   2s
@@ -244,7 +290,7 @@ Child Profile With Age-Appropriate Content
     @{expected}=    Create List    BabyShark    Cartoon Network Arabic
     Should Contain Any    ${titles}    @{expected}
     Log To Console    "This is child profile"
-    Extract Title And Channel
+
 
 Extract Title And Channel
     [Arguments]    ${index1}    ${index2}

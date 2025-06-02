@@ -6,7 +6,7 @@ Library    Collections
 Library    OperatingSystem
 
 *** Variables ***
-${TAP_CONFIG_FILE}    C:/D_Drive/Etisalat_Android/Etisalat_Android/TestSuite/tap_mobile_coordinates.json
+${TAP_CONFIG_FILE}    C:/D_Drive/Etisalatautomation/TestSuite/tap_mobile_coordinates.json
 # ${TAP_CONFIG_FILE}    C:/D_Drive/Etisalat_Android/Etisalat_Android/TestSuite/tap_tab_coordinates.json
 
 *** Keywords ***

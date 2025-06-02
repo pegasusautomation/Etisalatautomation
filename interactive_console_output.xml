@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.0.3 (Python 3.7.4 on win32)" generated="20250430 11:18:31.301" rpa="false" schemaversion="2">
-<suite id="s1" name="Robot Interactive Console" source="c:\Users\40013838\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
-<test id="s1-t1" name="Default Task/Test">
-<kw name="Interpreter Main Loop" library="MainLoop">
-<kw name="LAUNCH TV BY E APP REMOTE ANDROID PHONE">
-<msg timestamp="20250430 11:18:33.106" level="FAIL">No keyword with name 'LAUNCH TV BY E APP REMOTE ANDROID PHONE' found.</msg>
-<status status="FAIL" starttime="20250430 11:18:33.106" endtime="20250430 11:18:33.106"/>
+<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-30T12:07:02.580534" rpa="false" schemaversion="5">
+<suite id="s1" name="Robot Interactive Console" source="c:\Users\ragha\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
+<test id="s1-t1" name="Default Task/Test" line="5">
+<kw name="Interpreter Main Loop" owner="MainLoop">
+<status status="PASS" start="2025-05-30T12:07:02.610074" elapsed="2.598757"/>
 </kw>
-<status status="PASS" starttime="20250430 11:18:31.340" endtime="20250430 11:18:35.485"/>
-</kw>
-<status status="PASS" starttime="20250430 11:18:31.340" endtime="20250430 11:18:35.485"/>
+<status status="PASS" start="2025-05-30T12:07:02.610074" elapsed="2.598757"/>
 </test>
-<status status="PASS" starttime="20250430 11:18:31.309" endtime="20250430 11:18:35.485"/>
+<status status="PASS" start="2025-05-30T12:07:02.580534" elapsed="2.630304"/>
 </suite>
 <statistics>
 <total>
@@ -20,9 +16,10 @@
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Robot Interactive Console">Robot Interactive Console</stat>
+<stat name="Robot Interactive Console" id="s1" pass="1" fail="0" skip="0">Robot Interactive Console</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2025-05-30T12:07:02.580534" level="WARN">Error in file 'c:\Users\ragha\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot' on line 4: Singular section headers like '*** Test Case ***' are deprecated. Use plural format like '*** Test Cases ***' instead.</msg>
 </errors>
 </robot>

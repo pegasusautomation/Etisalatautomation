@@ -16,7 +16,7 @@ Library         OperatingSystem
 Library         String
 Library         Collections
 Library         DateTime
-Library         C:\\D_Drive\\Etisalat_Android\\Etisalat_Android\\Lib\\Python\\Appium_Function.py
+Library         C:\\D_Drive\\Etisalatautomation\Lib\\Python\\Appium_Function.py
 
 Library    XML
 
