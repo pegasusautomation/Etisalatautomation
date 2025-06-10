@@ -1,6 +1,9 @@
 TV_GUIDE: 'xpath=(//android.widget.TextView[@text="TV GUIDE"])[1]'
-GENRE_DROPDOWN_XPATH: '//android.widget.ScrollView//android.widget.FrameLayout[3]//android.widget.FrameLayout[1]//android.widget.FrameLayout'
+GENRE_DROPDOWN_XPATH: "xpath=//android.widget.ScrollView//android.widget.FrameLayout[3]//android.widget.FrameLayout[1]//android.widget.FrameLayout"
 GENRE_CATAGORY_XPATH: "xpath=//android.widget.TextView[@text='${genre}']"
+VOD_LANGUAGE_TEXT: 'xpath=//android.widget.TextView[contains(@text, "Language")]'
+FEED: "xpath= //android.widget.TextView[@text='${feed_name}']"
+FEED_PAGE_TITLE: "xpath= (//android.widget.TextView[@text='${feed_name}''])[2]"
 
 
 # Genre options
@@ -17,6 +20,8 @@ GENRE_CATEGORY_KIDS:        'Kids'
 GENRE_CATEGORY_MUSIC:       'Music'
 GENRE_CATEGORY_LIVE:      'Playing Now'
 GENRE_CATEGORY_CATCHUP:      'Catchup'
+ON_DEMAND: 'ON DEMAND'
+VOD_TITLE: 'Peter rabbit'
 
 #By Names
 GENRE_Title: 'Peter Rabbit'

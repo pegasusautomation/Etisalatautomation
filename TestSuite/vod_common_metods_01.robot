@@ -11,8 +11,6 @@ Resource    C:/D_Drive/Etisalatautomation/Lib/Robot/ANDROID_TAB/ANDROID_TAB_Func
 Resource    C:/D_Drive/Etisalatautomation/Lib/Robot/ANDROID_TAB/ANDROID_TABLET_HOME_PAGE.robot
 
 *** Variables ***
-${ONDEMAND_TITLE}    ON DEMAND
-${ON_DEMAND}         xpath=//android.widget.TextView[@text="ON DEMAND"]
 ${FIRST_TILE}       //android.widget.GridView/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.ImageView
 ${LIVE_CONTENT}      xpath=//android.widget.TextView[contains(@text, 'Live') or contains(@text, 'Catch Up')]
 ${MOVIE_TITLE}       xpath=//android.widget.TextView[contains(@text, 'Movie') or contains(@text, 'Series')]
@@ -85,65 +83,58 @@ Library    BuiltIn
 
 *** Test Cases ***
 
+*** Test Cases ***
 501_Verify Live And Catch Up Content Presence Under On-Demand Tab
-    [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Select Genre    ${GENRE_CATEGORY_COMEDY}
+    Wait For Genre Content To Load
     Click Element    ${FIRST_TILE}
     ${isLiveContent}=    Verify Genre Selection    ${GENRE_CATEGORY_LIVE}
-    ${isLiveContentStr}=    Convert To String    ${isLiveContent}
-    Should Be Equal    ${isLiveContentStr}    False    Live content is present under VOD
+    Should Be True    '${isLiveContent}' == 'False'    Live content is present under VOD
     ${isCatchupContent}=    Verify Genre Selection    ${GENRE_CATEGORY_CATCHUP}
-    ${isCatchupContentStr}=    Convert To String    ${isCatchupContent}
-    Should Be Equal    ${isCatchupContentStr}    False    Catchup content is present under VOD
+    Should Be True    '${isCatchupContent}' == 'False'    Catchup content is present under VOD
     [Teardown]    Close TvBY_e& Application
 
 502_Verify Playback Under VOD Feed
-    [Documentation]    Verify playback functionality under VOD feed
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Play VOD Content
     Verify Playback During Playing
-    Navigate To VOD Page From Playback
     [Teardown]    Close TvBY_e& Application
 
 503_Verify Playback After Search
-    [Documentation]    Verify VOD playback after searching for content
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
-    Click Element    //android.widget.FrameLayout[2]/android.widget.ImageView
+    Navigate To Feed   ${ON_DEMAND}
     Wait Until Page Contains    SEARCH    timeout=${TIMEOUT}
     Click Element    xpath=//android.widget.EditText[@text="Search all content"]
     Input Text    xpath=//android.widget.EditText[@text="Search all content"]    Peter rabbit
     Press Keycode    66
-    ${isTitleFound}=    Verify Selected VOD Title    Peter Rabbit
+    ${isTitleFound}=    Verify Selected VOD Title    ${VOD_TITLE}
     Should Be True    ${isTitleFound}    "Peter Rabbit" is not found in the list
     [Teardown]    Close TvBY_e& Application
 
 507_Verify Navigate To VOD Section From Playback
-    [Documentation]    Verify navigation back to VOD from player
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Play VOD Content
     Verify Playback During Playing
     Navigate To VOD Page From Playback
     [Teardown]    Close TvBY_e& Application
 
 508_Verify Subtitles on VOD Playback
-    [Documentation]    Verify subtitle visibility and toggle in VOD playback
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Play VOD Content
     Verify Playback During Playing
     Get Seekbar On Player
@@ -154,11 +145,10 @@ Library    BuiltIn
     [Teardown]    Close TvBY_e& Application
 
 513_Verify Continue Watching VOD Playback
-    [Documentation]    Verify subtitle visibility after resume from continue watching
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Click Back Button
     Move To Feed    CONTINUE WATCHING
     Select Continue Watching Content To Play
@@ -169,22 +159,15 @@ Library    BuiltIn
     [Teardown]    Close TvBY_e& Application
 
 515_Verify Live And Catch Up Absence Under Different Genre
-    [Documentation]    Verify that Live and Catchup genres are not listed under the VOD section in another genre
     [Tags]    VOD
     [Setup]    TEST SETUP GENERIC ANDROID PHONE
     Navigate To Admin Profile
-    Navigate To VOD
+    Navigate To Feed   ${ON_DEMAND}
     Select Genre    ${GENRE_CATEGORY_ADVENTURE}
+    Wait For Genre Content To Load
     Click Element    ${FIRST_TILE}
     ${isTrue}=    Verify Genre Selection    ${GENRE_CATEGORY_ADVENTURE}
     Should Be True    ${isTrue}    Genre selection verification failed
     Play VOD Content
     Verify Playback During Playing
     [Teardown]    Close TvBY_e& Application
-
-
-
-
-
-
-

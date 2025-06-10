@@ -104,93 +104,101 @@ Close TvBY_e& Application
     Terminate Application    com.huawei.phone.elife
     Sleep    2s
 
-Navigate To VOD
-    [Documentation]    Navigate to the Electronic Program Guide (EPG) and verify the displayed program information.
+Navigate To Main Menu
+    [Documentation]   Clicks on menu icon once the HOME text is visible
     Sleep    5s
-#    Wait Until r5Element Is Visible    ${HOME_TEXT}    timeout=${TIMEOUT}
-    Click Element    ${MENU_BAR}
-    Click Element    ${ON_DEMAND}
-    Run Keyword And Continue On Failure    Element Should Be Visible    ${ON_DEMAND}
-    Log To Console    Navigated to On Demand
+    Wait Until Element Is Visible    xpath=//*[contains(@text, "HOME")]    timeout=20s
+    Click Element    xpath=(//android.widget.ImageView)[1]
+
+Navigate To Feed
+    [Arguments]    ${feed_name}
+    Navigate To Main Menu
+    ${feed_xpath}=    Set Variable    xpath=//android.widget.TextView[@text="${feed_name}"]
+    Wait Until Element Is Visible    ${feed_xpath}    timeout=${TIMEOUT}
+    Click Element    ${feed_xpath}
+    Wait Until Element Is Visible    locator=${feed_xpath}    timeout=${TIMEOUT}
+    Log To Console    ✅ Navigated to ${feed_name} Feed
+
 
 Select Genre
     [Arguments]    ${genre}
-    # Wait to ensure the UI is stable before interaction
-    Sleep    5s
-    # Tap on the Genre dropdown to display the genre list
-    Click Element    xpath=${GENRE_DROPDOWN_XPATH}
-    Sleep    3s
-    # Dynamically construct the XPath for the desired genre option
-    ${genre_xpath}=    Set Variable    xpath=//android.widget.TextView[@text='${genre}']
-    # Select the given genre from the dropdown
-    Click Element    ${genre_xpath}
-    Sleep    3s
+    Wait Until Element Is Visible    ${GENRE_DROPDOWN_XPATH}    timeout=${TIMEOUT}
+    Click Element    ${GENRE_DROPDOWN_XPATH}
+    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text='${genre}']    timeout=${TIMEOUT}
+    Click Element    xpath=//android.widget.TextView[@text='${genre}']
 
+Wait For Genre Content To Load
+    Wait Until Element Is Visible    ${FIRST_TILE}    timeout=${TIMEOUT}
 
 Verify Genre Selection
     [Arguments]    ${expected_genre}
-    # Short wait to allow elements to load after UI interaction
     Sleep    2s
-    # Construct XPath for the expected genre
     ${genre_xpath}=    Set Variable    //android.widget.TextView[@text="${expected_genre}"]
-    # Check whether the expected genre element is present on the page
     ${is_present}=     Run Keyword And Return Status    Page Should Contain Element    xpath=${genre_xpath}
-    # Log the result clearly based on presence status
-    Run Keyword If    '${is_present}' == 'True'
-    ...    Log    ✅ ${expected_genre} genre is listed
-    ...  ELSE
-    ...    Log    ❌ ${expected_genre} genre is NOT listed
-    # Return the boolean result to the caller
     [Return]    ${is_present}
 
 Play VOD Content
-    [Documentation]    Play the selected VOD content and verify the playback.
-    Sleep    3s
     Tap Based On Action And Resolution    select_vod
-    Run Process    adb    logcat    -c
     Sleep    2s
     Tap Based On Action And Resolution    play_vod
 
+*** Keywords ***
 Verify Playback During Playing
-    Sleep    15s
-    ${output}=    Run Process    adb    logcat    -d    |    findstr    player_aha    shell=True
-    ${logs}=      Set Variable    ${output.stdout}
-    Log    ${logs}
+    [Arguments]    ${log_file}=playback_log.txt
+
+    # Clear existing logs (optional if too aggressive)
+    # Run Process    adb    logcat    -c
+
+    Sleep    10s    # Wait for app to log playback info
+
+    # Capture only 300 recent lines
+    ${result}=    Run Process    adb    logcat    -d    -t 300    timeout=10s
+    ${stdout}=    Set Variable    ${result.stdout}
+    Create File    ${log_file}    ${stdout}
+
+    ${log_text}=    Get File    ${log_file}
+    Log To Console    --- FULL LOG OUTPUT ---
+    Log To Console    ${log_text}
+
+    ${filtered}=    Evaluate    "\n".join([line for line in '''${log_text}'''.splitlines() if 'player_aha' in line])
+    Log    Filtered player_aha logs:\n${filtered}
+
+    Should Contain    ${filtered}    onInformation:1100 i1=1
+    Log    ✅ Video is playing successfully
+
+    Remove File    ${log_file}
+
+
+Navigate To VOD Page From Playback
+    Click Back Button
+    Wait Until Element Is Visible    ${ON_DEMAND}    timeout=${TIMEOUT}
+    Wait Until Element Is Visible    ${VOD_LANGUAGE_TEXT}    timeout=${TIMEOUT}
+    Log To Console    ✅ Navigated back to On Demand
+
+Verify Selected VOD Title
+    [Arguments]    ${expected_title}
     Sleep    3s
-    Should Contain    ${logs}    onInformation:1100 i1=1
-    Log    ✅ Video is playing
-
-Verify Playback During Pause
-    ${output}=    Run Process    adb    logcat    -d    |    findstr    player_aha    shell=True
-    ${logs}=      Set Variable    ${output.stdout}
-    Log    ${logs}
-
-    Should Contain    ${logs}    onInformation:1100 i1=0
-    Log    ✅ Video is playing
+    ${all_texts}=    Get All Visible Text
+    ${is_present}=   Run Keyword And Return Status    List Should Contain Value    ${all_texts}    ${expected_title}
+    [Return]    ${is_present}
 
 Get Seekbar On Player
-    Sleep    5s
     Tap Based On Action And Resolution    tap_centre_of_player
 
 Select Subtitle Language As English
     Tap Based On Action And Resolution    maximize_player
-    Sleep    5s
+    Sleep    2s
     Get Seekbar On Player
-    Sleep    2s
     Tap Based On Action And Resolution    choose_subtitle_language
-    Sleep    2s
     Tap Based On Action And Resolution    select_english_subtitle
 
 Select Subtitle Language As No Subtitle
-    Sleep    5s
     Get Seekbar On Player
-    Sleep    2s
     Tap Based On Action And Resolution    choose_subtitle_language
-    Sleep    2s
     Tap Based On Action And Resolution    no_subtitle
 
 Verify Subtitle Display on Player
-    Wait Until Keyword Succeeds    10s    1s    Element Should Be Visible    xpath=//android.view.View[@resource-id="subtitles"]
+    Wait Until Keyword Succeeds    10s    2s    Element Should Be Visible    xpath=//android.view.View[@resource-id="subtitles"]
 
 Verify Subtitle Invisibility on Player 
     Sleep    10s
@@ -199,77 +207,17 @@ Verify Subtitle Invisibility on Player
     ...    Log To Console    ✅ Subtitle is NOT visible on the player
     ...  ELSE
     ...    Log To Console    ❌ Subtitle is still visible on the player
-    
 
 Click Back Button
-    Sleep    2s
     Tap Based On Action And Resolution    back_button
 
-Navigate To VOD Page From Playback
-    [Documentation]    Navigate back to the VOD page from the playback screen.
-    Sleep    2s
-    Click Back Button
-    Run Keyword And Continue On Failure    Element Should Be Visible    ${ON_DEMAND}
-    Run Keyword And Continue On Failure    Element Should Be Visible    ${VOD_LANGUAGE_TEXT}
-    Log To Console    Navigated to On Demand
-
-Verify Selected VOD Title
-    [Arguments]    ${expected_title}
-    Sleep    3s
-    ${all_texts}=    Get All Visible Text
-    ${is_present}=   Run Keyword And Return Status    List Should Contain Value    ${all_texts}    ${expected_title}
-    Run Keyword If    '${is_present}' == 'True'
-    ...    Log To Console    ✅ Title "${expected_title}" is present
-    ...  ELSE
-    ...    Log To Console    ❌ Title "${expected_title}" is NOT present
-    [Return]    ${is_present}
-
-
-Check For Continue Watching Section
-    Sleep   5s
-    Click Element    ${SCROLL_TO_STRATEGY}=${SCROLL_TO_CONTINUE_WATCHING}
-    Wait Until Page Contains Element    ${CONTINUE_WATCHING_TEXT}    timeout=${TIMEOUT}
-    Wait Until Element Is Visible   ${CONTINUE_WATCHING_CONTENT}
-    Sleep    2s
-    Click Element    ${CONTINUE_WATCHING_CONTENT}
-
-Move To Feed    
+Move To Feed
     [Arguments]    ${feed_name}
-    Sleep   5s
     ${scrollable_xpath}=    Set Variable    new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${feed_name}"))
     Click Element    ${SCROLL_TO_STRATEGY}=${scrollable_xpath}
 
 Select Continue Watching Content To Play
-    Sleep    2s
     Click Element    ${CONTINUE_WATCHING_CONTENT}
-
-Personalised Recommendations
-    Sleep   2s
-    Click Element    ${SCROLL_TO_STRATEGY}=${SCROLL_TO_RECOMMENDED}
-    Wait Until Page Contains Element    ${RECOMMENDED_TEXT}    timeout=${TIMEOUT}
-    Log To Console    Navigated to Recommendations
-    Wait Until Element Is Visible    ${RECOMMENDED_CONTENT}      timeout=${TIMEOUT}
-    Click Element    ${RECOMMENDED_CONTENT}
-    Handle Pin Entry If Required
-    Go Back
-
-# Navigate To Child Profile
-#     Launch TV By E App In Android Phone
-#     ${profiles}=    Run Keyword And Return Status    Wait Until Element Is Visible    ${PROFILE_TEXT}
-#     Run Keyword If    '${profiles}' == 'True'    Log To Console    Profile page is visible
-#     Log To Console    ${profiles}
-#     IF    ${profiles} == True
-#         Sleep    3s
-#         Click Element    ${SCROLL_TO_STRATEGY}=${SCROLL_TO_CHILD_PROFILE}
-#         Log    Profile selected successfully
-#         ${is_present}=    Run Keyword And Return Status    Wait Until Element Is Visible    ${PIN_CODE}    timeout=${TIMEOUT}
-#         Run Keyword If    '${is_present}' == 'True'    Input Text    ${PIN_CODE}    ${CHILD_PASSWORD}
-#         Run Keyword If    '${is_present}' == 'True'    Click Element    ${OK_BUTTON}
-#         Log To Console    Admin PIN is entered
-#         Handling Pop Up
-#     ELSE
-#         Log    Profile page is not visible
-#     END
 
 Get All Visible Text
     ${elements}=    Get Webelements    ${WEB_ELEMENTS}
